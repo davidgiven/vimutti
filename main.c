@@ -10,7 +10,7 @@
 
 struct dirent
 {
-	uint32_t unknown;
+	uint32_t crc; /* CRC16, polynomial 0x1021, initial 0x0000 */
 	uint32_t offset;
 	uint32_t length;
 	char filename[17];
@@ -120,7 +120,7 @@ static void load_directory(void)
 		decrypt(key, sizeof(key), buffer, 32);
 
 		struct dirent* de = &directory[i];
-		de->unknown = read32(buffer+0);
+		de->crc = read32(buffer+0);
 		de->offset = read32(buffer+4);
 		de->length = read32(buffer+8);
 		memcpy(de->filename, buffer+16, 16);
@@ -141,8 +141,8 @@ static void show_directory(void)
 	for (int i=0; i<directory_len; i++)
 	{
 		struct dirent* de = &directory[i];
-		printf("%08x len=%08x data=%08x until %08x: %s\n",
-			de->unknown, de->length, de->offset, de->offset+de->length, de->filename);
+		printf("crc=%08x len=%08x data=%08x until %08x: %s\n",
+			de->crc, de->length, de->offset, de->offset+de->length, de->filename);
 	}
 }
 
