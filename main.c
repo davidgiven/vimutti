@@ -192,7 +192,8 @@ static void extract_file(const char* pattern)
 		for (int i=0; i<de->length; i++)
 		{
 			uint8_t b = *p++;
-			b ^= key[i % file_key_n];
+			if (file_key_n)
+				b ^= key[i % file_key_n];
 			putc(b, fp);
 		}
 		fclose(fp);
