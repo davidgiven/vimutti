@@ -32,3 +32,15 @@ void load_file(const char* filename, uint8_t** data, uint32_t* length)
 	fclose(fp);
 }
 
+uint32_t crc16(uint16_t poly, uint16_t crc, uint8_t* data, uint32_t length)
+{
+	while (length--)
+	{
+		crc ^= (*data++) << 8;
+		for (int i=0; i<8; i++)
+			crc = (crc & 0x8000) ? ((crc<<1)^poly) : (crc<<1);
+	}
+
+	return crc;
+}
+

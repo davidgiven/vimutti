@@ -134,12 +134,16 @@ static void extract_file(const char* pattern)
 			fatal("cannot open output file: %s", strerror(errno));
 
 		uint8_t* p = image + de->offset;
+		uint16_t crc = crc16(0x1021, 0x0000, p, de->length);
 		for (int i=0; i<de->length; i++)
 		{
 			uint8_t b = *p++;
 			putc(b, fp);
 		}
 		fclose(fp);
+
+		if (crc != de->crc)
+			fatal("CRC check failure during extraction --- image corrupt");
 	}
 }
 
