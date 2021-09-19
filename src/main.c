@@ -16,6 +16,8 @@ int main(int argc, char* const argv[])
 
 	if (strcmp(cmd, "help") == 0)
 		cmd_help();
+	else if (strcmp(cmd, "unpackapp") == 0)
+		cmd_unpackapp(argc, argv);
 	else if (strcmp(cmd, "unpackimg") == 0)
 		cmd_unpackimg(argc, argv);
 	else

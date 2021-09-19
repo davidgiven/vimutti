@@ -2,6 +2,7 @@ OBJDIR = .obj
 
 SRCS = \
 	src/main.c \
+	src/unpackapp.c \
 	src/unpackimg.c \
 	src/utils.c \
 
