@@ -1,6 +1,16 @@
-vimutti: main.o
-	gcc -Os -g -o $@ $<
+OBJDIR = .obj
 
-%.o: %.c
+SRCS = \
+	main.c \
+	unpackimg.c \
+	utils.c \
+
+OBJS = $(patsubst %.c, $(OBJDIR)/%.o, $(SRCS))
+
+vimutti: $(OBJS)
+	gcc -Os -g -o $@ $(OBJS)
+
+$(OBJDIR)/%.o: %.c
+	@mkdir -p $(dir $@)
 	gcc -Os -g -c -o $@ $<
 
