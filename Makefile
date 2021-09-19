@@ -1,9 +1,9 @@
 OBJDIR = .obj
 
 SRCS = \
-	main.c \
-	unpackimg.c \
-	utils.c \
+	src/main.c \
+	src/unpackimg.c \
+	src/utils.c \
 
 OBJS = $(patsubst %.c, $(OBJDIR)/%.o, $(SRCS))
 
